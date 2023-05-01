@@ -60,7 +60,7 @@ public class Educational extends Organization {
                 " (EIN: " + getEIN() + ")" +
                 " is " + stateInfo +
                 corporateInfo +
-                "with a staff of " + getStuff() +
+                " with a staff of " + getStuff() +
                 " has been worked since " + getRegistrationDate().substring(0, 4) +
                 ", can accept any applicant " + age +
                 "This school located in " + getCountry() +

@@ -1,7 +1,7 @@
 package organization.educational;
 
 import organization.AgeCalculation;
-import organization.CheckEnteredDate;
+import organization.CheckEnteredData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,27 +12,43 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Service {
-
-    public static void searchByBirthdate() {
+    public void searchByBirthdate() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Please, enter your birthday in the format YYYY-MM-DD, for example 1990-01-03");
+
         String birthday = scan.nextLine();
 
-        if (CheckEnteredDate.check(birthday)) {
-            System.out.println("Access granted\n");
+        ageFromByBirthdate(birthday);
+    }
+
+    private static void ageFromByBirthdate(String birthday) {
+        if (CheckEnteredData.isDateForLocalDate(birthday)) System.out.println("Access granted\n");
+        else {
+            System.out.println("Access  denied");
+            System.out.println("Try again and see example carefully please\n");
+
+            new Service().searchByBirthdate();
+
+            return;
         }
+        String [] divideDate = birthday.split("-");
+
+        if (divideDate[1].length() == 1) birthday = birthday.substring(0, 5) + "0" + birthday.substring(5);
+        if (divideDate[2].length() == 1) birthday = birthday.substring(0, 8) + "0" + birthday.substring(8);
 
         LocalDate birthdate = LocalDate.parse(birthday);
         LocalDate today = LocalDate.now();
 
         int age = AgeCalculation.ageCalculation(today, birthdate);
+
         if (age < 0) {
-            Service.searchByBirthdate();
+            new Service().searchByBirthdate();
+
             return;
         }
 
-        if (age > 100) System.out.printf("Are you definitely %d years old?! You're in great shape!)\n", age);
+        if (age > 85) System.out.printf("Are you definitely %d years old?! You're in great shape!)\n", age);
         else System.out.printf("Your age is %s years young\n", age);
 
         if (age < 6) System.out.printf("%s recommended for you\n\n", Type.PRE_SCHOOL.getSchool());
@@ -42,47 +58,52 @@ public class Service {
         else System.out.printf("%s recommended for you\n\n", Type.UNIVERSITY.getSchool());
 
         System.out.println("The following educational institutions would be suitable for you:");
-        try {
+
             Service.resultOfSearchByBirthdate(age);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Something strange is going on with this file", e);
-        }
     }
 
-    private static void resultOfSearchByBirthdate(int age) throws IOException {
-        BufferedReader bufferedReader = Files.newBufferedReader(Path.of("resources/organization/educational.txt"));
-        Stream<String> firm = bufferedReader.lines();
+    private static void resultOfSearchByBirthdate(int age) {
+        try {
+            BufferedReader bufferedReader = Files.newBufferedReader(Path.of("resources/organization/educational.txt"));
+            Stream<String> firm = bufferedReader.lines();
 
-        firm.forEach(organization -> {
-            String[] data = organization.split(" ");
+            firm.map(o -> o.replaceAll("\\s+", " "))
+                    .skip(2)
+                    .forEach(organization -> {
 
-            if (data[11].equals("true")) {
-                if (data[3].equals("unlimited")) {
-                    Educational suitable = new Educational(data[1], data[2].replace('_', ' '), data[3], data[4].replace('_', ' '), Boolean.parseBoolean(data[5]), Integer.parseInt(data[6]), data[7], data[8].replace('_', ' '), data[9].replace('_', ' '), data[10], Boolean.parseBoolean(data[11]));
-                    System.out.printf("id" + data[0] + " ");
-                    System.out.println(suitable);
-                }
-                else if (data[3].startsWith("more")) {
-                    int limit = Integer.parseInt(data[3].replace("more_", ""));
+                String[] data = organization.split(" \\| ");
 
-                    if (age >= limit) {
-                        Educational suitable = new Educational(data[1], data[2].replace('_', ' '), data[3].replace('_', ' '), data[4].replace('_', ' '), Boolean.parseBoolean(data[5]), Integer.parseInt(data[6]), data[7], data[8].replace('_', ' '), data[9].replace('_', ' '), data[10], Boolean.parseBoolean(data[11]));
-                        System.out.printf("id" + data[0] + " ");
-                        System.out.println(suitable);
-                    }
-                }
-                else {
-                    String[] ages = data[3].split("-");
-                    int limitFrom = Integer.parseInt(ages[0]);
-                    int limitTo = Integer.parseInt(ages[1]);
-
-                    if (age >= limitFrom && age <= limitTo) {
+                if (data[11].equals("true")) {
+                    if (data[3].equals("unlimited")) {
                         Educational suitable = new Educational(data[1], data[2].replace('_', ' '), data[3], data[4].replace('_', ' '), Boolean.parseBoolean(data[5]), Integer.parseInt(data[6]), data[7], data[8].replace('_', ' '), data[9].replace('_', ' '), data[10], Boolean.parseBoolean(data[11]));
                         System.out.printf("id" + data[0] + " ");
                         System.out.println(suitable);
                     }
+                    else if (data[3].startsWith("more")) {
+                        int limit = Integer.parseInt(data[3].replace("more_", ""));
+
+                        if (age >= limit) {
+                            Educational suitable = new Educational(data[1], data[2].replace('_', ' '), data[3].replace('_', ' '), data[4].replace('_', ' '), Boolean.parseBoolean(data[5]), Integer.parseInt(data[6]), data[7], data[8].replace('_', ' '), data[9].replace('_', ' '), data[10], Boolean.parseBoolean(data[11]));
+                            System.out.printf("id" + data[0] + " ");
+                            System.out.println(suitable);
+                        }
+                    }
+                    else {
+                        String[] ages = data[3].split("-");
+                        int limitFrom = Integer.parseInt(ages[0]);
+                        int limitTo = Integer.parseInt(ages[1]);
+
+                        if (age >= limitFrom && age <= limitTo) {
+                            Educational suitable = new Educational(data[1], data[2].replace('_', ' '), data[3], data[4].replace('_', ' '), Boolean.parseBoolean(data[5]), Integer.parseInt(data[6]), data[7], data[8].replace('_', ' '), data[9].replace('_', ' '), data[10], Boolean.parseBoolean(data[11]));
+                            System.out.printf("id" + data[0] + " ");
+                            System.out.println(suitable);
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch (IOException e) {
+            throw new IllegalArgumentException("Something strange is going on with this file", e);
+        }
     }
 }

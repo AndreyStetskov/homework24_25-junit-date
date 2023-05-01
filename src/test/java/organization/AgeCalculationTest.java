@@ -2,6 +2,10 @@ package organization;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.converter.ConvertWith;
+import org.junit.jupiter.params.converter.SimpleArgumentConverter;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -53,4 +57,22 @@ class AgeCalculationTest {
         assertEquals(expected, actual);
         assertEquals(expectedSecond, actualSecond);
     }
+
+    @ParameterizedTest
+    @DisplayName("Got in with different values")
+//    given
+    @CsvSource({"2023/04/20, 1999/04/11, 23",
+            "2023/04/20, 1999/04/20, 24",
+            "2023/04/20, 1999/10/20, 24",
+            "2023/04/20, 1999/01/11, 24",
+    })
+
+
+//    when
+    public void ageCalculation_equalMonthDifferentDay_success(@ConvertWith(SimpleArgumentConverter.class) LocalDate today, LocalDate birthday, int expected) {
+
+    }
+
+//    then
+
 }
