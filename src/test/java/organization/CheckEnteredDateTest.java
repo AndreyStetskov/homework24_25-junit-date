@@ -1,5 +1,6 @@
 package organization;
 
+import date.control.CheckEnteredDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,8 +13,8 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheckEnteredDataTest {
-    CheckEnteredData checkDate;
+class CheckEnteredDateTest {
+    CheckEnteredDate checkDate;
     @ParameterizedTest
     @DisplayName("The date entered exactly")
     @ValueSource(strings = {"1988-02-03",
@@ -25,7 +26,7 @@ class CheckEnteredDataTest {
 
 
 //        then
-        assertTrue(CheckEnteredData.isDateForLocalDate(date));
+        assertTrue(checkDate.isDateForLocalDate(date));
     }
 
 
@@ -52,7 +53,7 @@ class CheckEnteredDataTest {
 
 
 //        then
-        assertTrue(CheckEnteredData.isDateForLocalDate(date));
+        assertTrue(checkDate.isDateForLocalDate(date));
     }
 
 
@@ -76,7 +77,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -109,7 +110,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -142,7 +143,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -175,7 +176,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -208,7 +209,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-           CheckEnteredData.isDateForLocalDate(date);
+           checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -241,7 +242,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -274,7 +275,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -306,7 +307,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -338,7 +339,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -370,7 +371,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -402,7 +403,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -436,7 +437,7 @@ class CheckEnteredDataTest {
             PrintStream intercept = new PrintStream(outputStream);
             System.setOut(intercept);
 
-            CheckEnteredData.isDateForLocalDate(date);
+            checkDate.isDateForLocalDate(date);
 
             intercept.flush();
             consoleOutput = outputStream.toString();
@@ -459,6 +460,6 @@ class CheckEnteredDataTest {
 
 
 //        then
-        assertThrows(IllegalArgumentException.class, () -> CheckEnteredData.isDateForLocalDate(date));
+        assertThrows(IllegalArgumentException.class, () -> checkDate.isDateForLocalDate(date));
     }
 }

@@ -1,5 +1,6 @@
 package organization;
 
+import date.AgeCalculationUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,7 +13,7 @@ import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AgeCalculationTest {
+class AgeCalculationUtilTest {
     @Test
     @DisplayName("Got in with different values")
     public void ageCalculation_differentValues_success() {
@@ -26,8 +27,8 @@ class AgeCalculationTest {
 
 
 //        when
-        int actual = AgeCalculation.ageCalculation(today, birthday);
-        int actualSecond = AgeCalculation.ageCalculation(today, birthdaySecond);
+        int actual = AgeCalculationUtil.ageCalculation(today, birthday);
+        int actualSecond = AgeCalculationUtil.ageCalculation(today, birthdaySecond);
 
 
 //        then
@@ -49,8 +50,8 @@ class AgeCalculationTest {
 
 
 //        when
-        int actual = AgeCalculation.ageCalculation(today, birthday);
-        int actualSecond = AgeCalculation.ageCalculation(today, birthdaySecond);
+        int actual = AgeCalculationUtil.ageCalculation(today, birthday);
+        int actualSecond = AgeCalculationUtil.ageCalculation(today, birthdaySecond);
 
 
 //        then

@@ -1,8 +1,10 @@
-package organization;
+package date;
+
+import console.OutputMassage;
 
 import java.time.LocalDate;
 
-public class AgeCalculation {
+public class AgeCalculationUtil {
     public static int ageCalculation(LocalDate today, LocalDate birthdate) {
         int age = today.getYear() - birthdate.getYear();
 
@@ -17,8 +19,15 @@ public class AgeCalculation {
         }
 
         if (age < 0) {
-            System.out.println("Your date of birth is wrong. You weren't born yet");
-            System.out.println("Try again\n");
+            OutputMassage massage = new OutputMassage();
+
+            massage.ageIsNegative();
+        }
+
+        if (age > 115) {
+            OutputMassage massage = new OutputMassage();
+
+            massage.impossibleAge(age);
         }
 
         return age;

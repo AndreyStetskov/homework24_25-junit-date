@@ -1,8 +1,9 @@
-package organization;
+package entity.organization;
 
 import java.util.Objects;
 
 public abstract class Organization {
+    private final int ID;
     private final String EIN;
     private String name;
     private String corporateGroup;
@@ -15,17 +16,22 @@ public abstract class Organization {
     boolean isCurrent;
 
 
-    public Organization(String EIN, String name, String corporateGroup, int stuff, boolean isState, String registrationDate, String location, String country, String connection, boolean isCurrent) {
+    public Organization(int ID, String EIN, String name, String corporateGroup, boolean isState, int stuff, String registrationDate, String location, String country, String connection, boolean isCurrent) {
+        this.ID = ID;
         this.EIN = EIN;
         this.name = name;
         this.corporateGroup = corporateGroup;
-        this.stuff = stuff;
         this.isState = isState;
+        this.stuff = stuff;
         this.registrationDate = registrationDate;
         this.location = location;
         this.country = country;
         this.connection = connection;
         this.isCurrent = isCurrent;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public String getEIN() {
@@ -109,18 +115,19 @@ public abstract class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return stuff == that.stuff && isState == that.isState && isCurrent == that.isCurrent && Objects.equals(EIN, that.EIN) && Objects.equals(name, that.name) && Objects.equals(corporateGroup, that.corporateGroup) && Objects.equals(registrationDate, that.registrationDate) && Objects.equals(location, that.location) && Objects.equals(country, that.country) && Objects.equals(connection, that.connection);
+        return ID == that.ID && stuff == that.stuff && isState == that.isState && isCurrent == that.isCurrent && Objects.equals(EIN, that.EIN) && Objects.equals(name, that.name) && Objects.equals(corporateGroup, that.corporateGroup) && Objects.equals(registrationDate, that.registrationDate) && Objects.equals(location, that.location) && Objects.equals(country, that.country) && Objects.equals(connection, that.connection);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(EIN, name, corporateGroup, stuff, isState, registrationDate, location, country, connection, isCurrent);
+        return Objects.hash(ID, EIN, name, corporateGroup, stuff, isState, registrationDate, location, country, connection, isCurrent);
     }
 
     @Override
     public String toString() {
         return "Organization{" +
-                "EIN='" + EIN + '\'' +
+                "ID=" + ID +
+                ", EIN='" + EIN + '\'' +
                 ", name='" + name + '\'' +
                 ", corporateGroup='" + corporateGroup + '\'' +
                 ", stuff=" + stuff +

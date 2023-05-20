@@ -1,16 +1,15 @@
-package organization.educational;
+package entity.organization.educational;
 
-import organization.Organization;
+import entity.organization.Organization;
 
 import java.util.Objects;
 
-public class Educational extends Organization {
+public class EducationalDTO extends Organization {
     private String ageLimit;
 
-
-    public Educational(String EIN, String name, String ageLimit, String corporateGroup, boolean isState, int stuff, String registrationDate, String location, String country, String connection, boolean isCurrent) {
-        super(EIN, name, corporateGroup, stuff, isState, registrationDate, location, country, connection, isCurrent);
-        this.ageLimit = ageLimit;
+    public EducationalDTO(String[] data) {
+        super(Integer.parseInt(data[0]), data[1], data[2], data[4], Boolean.parseBoolean(data[5]), Integer.parseInt(data[6]), data[7], data[8], data[9], data[10], Boolean.parseBoolean(data[11]));
+        this.ageLimit = data[3];
     }
 
     public String getAgeLimit() {
@@ -26,7 +25,7 @@ public class Educational extends Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Educational that = (Educational) o;
+        EducationalDTO that = (EducationalDTO) o;
         return Objects.equals(ageLimit, that.ageLimit);
     }
 
@@ -56,7 +55,8 @@ public class Educational extends Organization {
             age = "between the ages of " + ageFrom + " and " + ageTo + ". ";
         }
 
-        return getName() +
+        return "id" + getID() + " " +
+                getName() +
                 " (EIN: " + getEIN() + ")" +
                 " is " + stateInfo +
                 corporateInfo +
